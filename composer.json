@@ -1,0 +1,12 @@
+{
+    "name": "ddm14159/algo",
+    "autoload": {
+        "psr-4": {
+            "Ddm14159\\Algo\\": "src/",
+            "Ddm14159\\Algo\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

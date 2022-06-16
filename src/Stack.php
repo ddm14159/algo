@@ -75,7 +75,7 @@ class Stack implements IStack
     public function peek(): mixed
     {
         if ($this->isEmpty()) {
-            throw new \Exception('Stack underflow');
+            throw new() \Exception('Stack underflow');
         }
         return $this->last;
     }

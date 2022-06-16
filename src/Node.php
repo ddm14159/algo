@@ -5,7 +5,7 @@ namespace Ddm14159\Algo;
 class Node
 {
     private mixed $data;
-    public ?Node $next;
+    private ?Node $next;
 
     public function __construct(mixed $data)
     {
@@ -29,7 +29,7 @@ class Node
      * @param Node $next
      * @return void
      */
-    public function setNext(Node $next): void
+    public function setNext(?Node $next): void
     {
         $this->next = $next;
     }

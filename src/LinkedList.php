@@ -2,7 +2,7 @@
 
 namespace Ddm14159\Algo;
 
-class ListADT
+class LinkedList
 {
     private ?Node $head = null;
 
@@ -25,6 +25,16 @@ class ListADT
     }
 
     /**
+     * Checks if the list is empty
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->head === null;
+    }
+
+    /**
      * Return the last node of the list
      *
      * @return Node
@@ -36,16 +46,6 @@ class ListADT
             $current = $current->getNext();
         }
         return $current;
-    }
-
-    /**
-     * Checks if the list is empty
-     *
-     * @return bool
-     */
-    public function isEmpty(): bool
-    {
-        return $this->head === null;
     }
 
     /**
@@ -87,12 +87,35 @@ class ListADT
     }
 
     /**
+     * Deletes given value from the list
+     *
+     * @param mixed $value
+     * @return LinkedList
+     */
+    public function delete(mixed $value): LinkedList
+    {
+        if ($this->head->getValue() === $value) {
+            return $this->shift();
+        }
+        $previous = $this->head;
+        $current = $this->head->getNext();
+        while ($current !== null) {
+            if ($current->getValue() === $value) {
+                $previous->setNext($current->getNext());
+            }
+            $previous = $previous->getNext();
+            $current = $current->getNext();
+        }
+        return $this;
+    }
+
+    /**
      * Adds given value to the end of the list
      *
      * @param mixed $value
      * @return $this
      */
-    public function push(mixed $value): ListADT
+    public function push(mixed $value): LinkedList
     {
         $new = new Node($value);
         if ($this->head === null) {
@@ -108,7 +131,7 @@ class ListADT
      *
      * @return $this
      */
-    public function pop(): ListADT
+    public function pop(): LinkedList
     {
         $current = $this->head;
         while ($current->getNext()->getNext() !== null) {
@@ -124,7 +147,7 @@ class ListADT
      * @param mixed $value
      * @return $this
      */
-    public function unshift(mixed $value): ListADT
+    public function unshift(mixed $value): LinkedList
     {
         $newHead = new Node($value);
         $tmp = $this->head;
@@ -138,7 +161,7 @@ class ListADT
      *
      * @return $this
      */
-    public function shift(): ListADT
+    public function shift(): LinkedList
     {
         $this->head = $this->head->getNext();
         return $this;

@@ -2,17 +2,17 @@
 
 namespace Ddm14159\Algo\Tests;
 
-use Ddm14159\Algo\ListADT;
+use Ddm14159\Algo\LinkedList;
 use PHPUnit\Framework\TestCase;
 
-class ListADTTest extends TestCase
+class LinkerListTest extends TestCase
 {
-    public ListADT $list;
+    public LinkedList $list;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->list = new ListADT();
+        $this->list = new LinkedList();
         $this->list->push(1);
         $this->list->push(2);
     }
@@ -59,5 +59,11 @@ class ListADTTest extends TestCase
     public function testFind()
     {
         $this->assertTrue($this->list->find(2));
+    }
+
+    public function testDelete()
+    {
+        $this->list->delete(2);
+        $this->assertFalse($this->list->find(2));
     }
 }

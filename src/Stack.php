@@ -29,6 +29,16 @@ class Stack implements IStack
     }
 
     /**
+     * Return size of the stack
+     *
+     * @return int
+     */
+    public function size(): int
+    {
+        return $this->length;
+    }
+
+    /**
      * Added given value to the stack
      *
      * @param mixed $value
@@ -50,7 +60,7 @@ class Stack implements IStack
      */
     public function pop(): mixed
     {
-        $popped = $this->top();
+        $popped = $this->peek();
         $this->last = $this->data[$this->length - 2] ?? null;
         unset($this->data[$this->length - 1]);
         $this->length--;
@@ -63,7 +73,7 @@ class Stack implements IStack
      * @return mixed
      * @throws Exception
      */
-    public function top(): mixed
+    public function peek(): mixed
     {
         if ($this->isEmpty()) {
             throw new Exception('Stack underflow');

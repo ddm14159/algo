@@ -84,4 +84,23 @@ class Sort
         $mergedRightData = self::merge($rightData);
         return self::unite($mergedLeftData, $mergedRightData);
     }
+
+    public static function quick(array $data): array
+    {
+        $length = count($data);
+        if ($length < 2) {
+            return $data;
+        }
+        $pivot = $data[0];
+        $less = [];
+        $greater = [];
+        for ($i = 1; $i < $length; $i++) {
+            if ($data[$i] < $pivot) {
+                $less[] = $data[$i];
+            } else {
+                $greater[] = $data[$i];
+            }
+        }
+        return array_merge(self::quick($less), [$pivot], self::quick($greater));
+    }
 }

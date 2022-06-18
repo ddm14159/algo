@@ -13,8 +13,8 @@ class SortTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->data = [1, 11, 8, 12, 4];
-        $this->expected = [1, 4, 8, 11, 12];
+        $this->data = [1, 11, 8, 12, 4, 9, 3];
+        $this->expected = [1, 3, 4, 8, 9, 11, 12];
     }
 
     public function testSelectionEmpty()
@@ -38,6 +38,18 @@ class SortTest extends TestCase
     public function testMergeTrue()
     {
         $sorted = Sort::merge($this->data);
+        $this->assertEquals($this->expected, $sorted);
+    }
+
+    public function testQuickEmpty()
+    {
+        $sorted = Sort::quick([]);
+        $this->assertEquals([], $sorted);
+    }
+
+    public function testQuickTrue()
+    {
+        $sorted = Sort::quick($this->data);
         $this->assertEquals($this->expected, $sorted);
     }
 }

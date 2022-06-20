@@ -1,24 +1,26 @@
 <?php
 
-namespace Ddm14159\Algo;
+namespace Ddm14159\Algo\Datastructures;
 
-use Ddm14159\Algo\Interfaces\IStack;
+use Ddm14159\Algo\Interfaces\IQueue;
 
-class Stack implements IStack
+class Queue implements IQueue
 {
     private array $data;
+    private mixed $first;
     private mixed $last;
     private int $length;
 
     public function __construct()
     {
         $this->data = [];
+        $this->first = null;
         $this->last = null;
         $this->length = 0;
     }
 
     /**
-     * Checks if the stack is empty
+     * Checks if the queue is empty
      *
      * @return bool
      */
@@ -28,7 +30,7 @@ class Stack implements IStack
     }
 
     /**
-     * Return size of the stack
+     * Return size of the queue
      *
      * @return int
      */
@@ -38,13 +40,16 @@ class Stack implements IStack
     }
 
     /**
-     * Added given value to the stack
+     * Added given value to the queue
      *
      * @param mixed $value
      * @return $this
      */
-    public function push(mixed $value): Stack
+    public function enqueue(mixed $value): Queue
     {
+        if ($this->size() === 0) {
+            $this->first = $value;
+        }
         $this->data[] = $value;
         $this->last = $value;
         $this->length++;
@@ -52,31 +57,31 @@ class Stack implements IStack
     }
 
     /**
-     * Deletes top item from the stack and returns its value
+     * Deletes the first item from the queue and returns its value
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
-    public function pop(): mixed
+    public function dequeue(): mixed
     {
-        $popped = $this->peek();
-        $this->last = $this->data[$this->length - 2] ?? null;
-        unset($this->data[$this->length - 1]);
+        $item = $this->peek();
+        $this->first = $this->data[1] ?? null;
+        $this->data = array_slice($this->data, 1);
         $this->length--;
-        return $popped;
+        return $item;
     }
 
     /**
-     * Returns value of the top item of the stack
+     * Returns value of the first item of the queue
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function peek(): mixed
     {
         if ($this->isEmpty()) {
-            throw new \Exception('Stack underflow');
+            throw new Exception('Queue underflow');
         }
-        return $this->last;
+        return $this->first;
     }
 }

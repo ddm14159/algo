@@ -2,7 +2,7 @@
 
 namespace Ddm14159\Algo\Tests;
 
-use Ddm14159\Algo\LinkedList;
+use Ddm14159\Algo\Datastructures\LinkedList;
 use PHPUnit\Framework\TestCase;
 
 class LinkerListTest extends TestCase
@@ -13,57 +13,86 @@ class LinkerListTest extends TestCase
     {
         parent::setUp();
         $this->list = new LinkedList();
-        $this->list->push(1);
-        $this->list->push(2);
     }
 
     public function testIsEmpty()
     {
-        $this->assertFalse($this->list->isEmpty());
+        $this->assertTrue($this->list->isEmpty());
     }
 
-    public function testGetLastValue()
+    public function testToArrayEmpty()
     {
-        $this->assertEquals(2, $this->list->getLastValue());
+        $expected = [];
+        $this->assertEquals($expected, $this->list->toArray());
     }
 
-    public function testGetFirstValue()
+    public function testToArray()
     {
-        $this->assertEquals(1, $this->list->getFirstValue());
+        $expected = [2, 1];
+        $this->list->prepend(1)->prepend(2);
+        $this->assertEquals($expected, $this->list->toArray());
     }
 
-    public function testPush()
+    public function testPrepend()
     {
-        $this->list->push(3);
-        $this->assertEquals(3, $this->list->getLastValue());
+        $this->list->prepend(1)->prepend(2);
+        $this->assertEquals(2, $this->list->getHead());
     }
 
-    public function testPop()
+    public function testAppend()
     {
-        $this->list->pop();
-        $this->assertEquals(1, $this->list->getLastValue());
+        $this->list->append(1)->append(2);
+        $this->assertEquals(1, $this->list->getHead());
     }
 
-    public function testUnshift()
+    public function providerTestInsert()
     {
-        $this->list->unshift(5);
-        $this->assertEquals(5, $this->list->getFirstValue());
+        return [
+            [-1, [3, 1, 2]],
+            [0, [3, 1, 2]],
+            [1, [3, 1, 2]],
+            [2, [1, 3, 2]],
+            [3, [1, 2, 3]],
+            [4, [1, 2, 3]],
+        ];
     }
 
-    public function testShift()
+    /**
+     * @dataProvider providerTestInsert
+     */
+    public function testInsert($index, $expected)
     {
-        $this->list->shift();
-        $this->assertEquals(2, $this->list->getFirstValue());
+        $this->list->append(1)->append(2);
+        $this->list->insert(3, $index);
+        $this->assertEquals($expected, $this->list->toArray());
     }
 
-    public function testFind()
+    public function providerTestDelete()
     {
-        $this->assertTrue($this->list->find(2));
+        return [
+            [1, [2, 3]],
+            [2, [1, 3]],
+            [3, [1, 2]],
+        ];
     }
 
-    public function testDelete()
+    /**
+     * @dataProvider providerTestDelete
+     */
+    public function testDelete($value, $expected)
     {
-        $this->list->delete(2);
-        $this->assertFalse($this->list->find(2));
+        $this->list->append(1)
+            ->append(2)
+            ->append(3)
+            ->delete($value);
+        $this->assertEquals($expected, $this->list->toArray());
+    }
+
+    public function testReverse()
+    {
+        $this->list->append(1)->append(2)->append(3);
+        $expected = [3, 2, 1];
+        $this->assertEquals($expected, $this->list->reverse()->toArray());
+        var_dump($this->list);
     }
 }

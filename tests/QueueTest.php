@@ -2,7 +2,7 @@
 
 namespace Ddm14159\Algo\Tests;
 
-use Ddm14159\Algo\Queue;
+use Ddm14159\Algo\Datastructures\Queue;
 use PHPUnit\Framework\TestCase;
 
 class QueueTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace Ddm14159\Algo\Tests;
 
-use Ddm14159\Algo\Stack;
+use Ddm14159\Algo\Datastructures\Stack;
 use PHPUnit\Framework\TestCase;
 
 class StackTest extends TestCase

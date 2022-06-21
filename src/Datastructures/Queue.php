@@ -6,17 +6,11 @@ use Ddm14159\Algo\Interfaces\IQueue;
 
 class Queue implements IQueue
 {
-    private array $data;
-    private mixed $first;
-    private mixed $last;
-    private int $length;
+    private LinkedList $list;
 
     public function __construct()
     {
-        $this->data = [];
-        $this->first = null;
-        $this->last = null;
-        $this->length = 0;
+        $this->list = new LinkedList();
     }
 
     /**
@@ -26,7 +20,7 @@ class Queue implements IQueue
      */
     public function isEmpty(): bool
     {
-        return $this->length === 0;
+        return $this->list->isEmpty();
     }
 
     /**
@@ -36,7 +30,7 @@ class Queue implements IQueue
      */
     public function size(): int
     {
-        return $this->length;
+        return $this->list->size();
     }
 
     /**
@@ -47,12 +41,7 @@ class Queue implements IQueue
      */
     public function enqueue(mixed $value): Queue
     {
-        if ($this->size() === 0) {
-            $this->first = $value;
-        }
-        $this->data[] = $value;
-        $this->last = $value;
-        $this->length++;
+        $this->list->append($value);
         return $this;
     }
 
@@ -64,11 +53,9 @@ class Queue implements IQueue
      */
     public function dequeue(): mixed
     {
-        $item = $this->peek();
-        $this->first = $this->data[1] ?? null;
-        $this->data = array_slice($this->data, 1);
-        $this->length--;
-        return $item;
+        $dequeued = $this->peek();
+        $this->list->deleteHead();
+        return $dequeued;
     }
 
     /**
@@ -82,6 +69,6 @@ class Queue implements IQueue
         if ($this->isEmpty()) {
             throw new Exception('Queue underflow');
         }
-        return $this->first;
+        return $this->list->getHead();
     }
 }

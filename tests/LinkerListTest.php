@@ -93,6 +93,5 @@ class LinkerListTest extends TestCase
         $this->list->append(1)->append(2)->append(3);
         $expected = [3, 2, 1];
         $this->assertEquals($expected, $this->list->reverse()->toArray());
-        var_dump($this->list);
     }
 }

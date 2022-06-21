@@ -6,15 +6,11 @@ use Ddm14159\Algo\Interfaces\IStack;
 
 class Stack implements IStack
 {
-    private array $data;
-    private mixed $last;
-    private int $length;
+    private LinkedList $list;
 
     public function __construct()
     {
-        $this->data = [];
-        $this->last = null;
-        $this->length = 0;
+        $this->list = new LinkedList();
     }
 
     /**
@@ -24,7 +20,7 @@ class Stack implements IStack
      */
     public function isEmpty(): bool
     {
-        return $this->length === 0;
+        return $this->list->isEmpty();
     }
 
     /**
@@ -34,7 +30,7 @@ class Stack implements IStack
      */
     public function size(): int
     {
-        return $this->length;
+        return $this->list->size();
     }
 
     /**
@@ -45,9 +41,7 @@ class Stack implements IStack
      */
     public function push(mixed $value): Stack
     {
-        $this->data[] = $value;
-        $this->last = $value;
-        $this->length++;
+        $this->list->prepend($value);
         return $this;
     }
 
@@ -60,9 +54,7 @@ class Stack implements IStack
     public function pop(): mixed
     {
         $popped = $this->peek();
-        $this->last = $this->data[$this->length - 2] ?? null;
-        unset($this->data[$this->length - 1]);
-        $this->length--;
+        $this->list->deleteHead();
         return $popped;
     }
 
@@ -77,6 +69,6 @@ class Stack implements IStack
         if ($this->isEmpty()) {
             throw new \Exception('Stack underflow');
         }
-        return $this->last;
+        return $this->list->getHead();
     }
 }

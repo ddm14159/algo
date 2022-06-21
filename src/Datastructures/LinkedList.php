@@ -112,6 +112,18 @@ class LinkedList
     }
 
     /**
+     * Removes the first item of the list
+     *
+     * @return $this
+     */
+    public function deleteHead(): LinkedList
+    {
+        $this->head = $this->head->next;
+        $this->length--;
+        return $this;
+    }
+
+    /**
      * Return the value of the head item of the list
      *
      * @return mixed
@@ -119,6 +131,16 @@ class LinkedList
     public function getHead(): mixed
     {
         return $this->head->value;
+    }
+
+    /**
+     * Returns size of the list
+     *
+     * @return int
+     */
+    public function size(): int
+    {
+        return $this->length;
     }
 
     /**

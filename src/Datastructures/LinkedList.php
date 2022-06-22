@@ -118,6 +118,9 @@ class LinkedList
      */
     public function deleteHead(): LinkedList
     {
+        if ($this->size() === 1) {
+            $this->tail = null;
+        }
         $this->head = $this->head->next;
         $this->length--;
         return $this;

@@ -49,7 +49,7 @@ class Stack implements IStack
      * Deletes top item from the stack and returns its value
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function pop(): mixed
     {
@@ -62,12 +62,12 @@ class Stack implements IStack
      * Returns value of the top item of the stack
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function peek(): mixed
     {
         if ($this->isEmpty()) {
-            throw new \Exception('Stack underflow');
+            throw new Exception('Stack underflow');
         }
         return $this->list->getHead();
     }
